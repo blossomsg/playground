@@ -39,13 +39,15 @@ b.append(15)
 def deco(func):
     def inner(*args):
         print(sum(args))
+        print(func(*args))
     return inner
 
 @deco
 def regular_print(*args):
     print(pow(args[0], args[1]))
 
-# regular_print(8, 2)
+regular_print(8, 2)
+
 
 class Biped:
     def __init__(self, name=None, kind=None, behaviour=None):
@@ -80,20 +82,20 @@ class Biped:
 # print(Biped().static("this is a static test"))
 
 # hashing same value - coursera
-while True:
-    txt = input("Enter a string: ")
-    if len(txt) < 1 : break
-
-    hv = 0
-    pos = 0
-    for let in txt:
-        pos = ( pos % 3 ) + 1
-        # print(pos)
-        # print(ord(let))
-        hv = (hv + (pos * ord(let))) % 1000000
-        print(let, pos, ord(let), hv)
-
-    print(hv, txt)
+# while True:
+#     txt = input("Enter a string: ")
+#     if len(txt) < 1 : break
+#
+#     hv = 0
+#     pos = 0
+#     for let in txt:
+#         pos = ( pos % 3 ) + 1
+#         # print(pos)
+#         # print(ord(let))
+#         hv = (hv + (pos * ord(let))) % 1000000
+#         print(let, pos, ord(let), hv)
+#
+#     print(hv, txt)
 
 # eg modulo
 # https://discuss.python.org/t/unintended-space-in-new-line-solved/51140/10
@@ -104,3 +106,64 @@ v4 = 25 % 6
 v5 = 172 % 3
 # print(v1,v2, v3, v4, v5, sep="\n") # returns the remainder of division
 
+# e.g. generator yield next
+def gen_123():
+    yield 1
+    yield 2
+    yield 3
+
+# for i in gen_123():
+#     print(i)
+
+g = gen_123()
+print(next(g))
+print(next(g))
+print(next(g))
+# print(next(g))  # error
+
+# e.g. generator with multiple pairs in yield
+def gen_abc_123():
+    yield 1, 'A'
+    yield 2, 'B'
+    yield 3, 'C'
+
+g2 = gen_abc_123()
+for x, y in g2:
+    print(f'{x} --> {y}')
+
+# str_unicode
+s = "A"
+b = s.encode(encoding="UTF-8")
+# print(b)
+
+# recursion algorithm
+def countdown(n):
+    if n<=0:
+        print("Blastoff!")
+    else:
+        print(n)
+        countdown(n-1)
+
+# countdown(5)
+
+# fluent python chapter 18 - pg-659
+# we open a file
+# read the file
+# save it in a variable
+# and close the file
+with open (R"F:\All_Projs\c++_Proj\OGL_Proj\OGL_Proj\vertShader.glsl") as f:
+    content = f.read()
+
+# print(content)
+
+# meta programming - concatenate the string value - record factory
+def concatenate(**kwargs):
+    result = ""
+    # Iterating over the Python kwargs dictionary
+    for arg in kwargs.values():
+        result += arg
+    return result
+
+
+d = {"a": "This", "b": "is", "c": "Test"}
+# print(concatenate(**d))
